@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D playerRigidbody;
 
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float jumpSpeed = 12f;
@@ -16,20 +16,20 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.rigidbody = this.gameObject.GetComponent<Rigidbody2D>(); 
+        this.playerRigidbody = this.gameObject.GetComponent<Rigidbody2D>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-        this.rigidbody.linearVelocityX = horizontalInput * this.moveSpeed;
+        this.playerRigidbody.linearVelocityX = horizontalInput * this.moveSpeed;
 
         bool jumpPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
 
         if (jumpPressed && this.IsGrounded())
         {
-            this.rigidbody.linearVelocityY = this.jumpSpeed;
+            this.playerRigidbody.linearVelocityY = this.jumpSpeed;
         }
     }
 
