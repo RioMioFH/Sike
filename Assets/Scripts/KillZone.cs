@@ -9,7 +9,7 @@ public class KillZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Tell the GameManager to respawn the player
-            GameManager.Instance.RespawnPlayer(other.gameObject);
+            FindAnyObjectByType<GameOverUI>().Show();
         }
     }
 }
