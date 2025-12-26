@@ -7,7 +7,7 @@ public class StartFloorTrap : MonoBehaviour
     // Tilemap with the floor tiles that should disappear when the trap is triggered
     [SerializeField] private Tilemap trapStartFloorTilemap;
     
-    // Makes sure the trap is triggered only once
+    // Ensures the trap is only triggered once
     private bool activated = false;
 
     // Method to activate the start trap
