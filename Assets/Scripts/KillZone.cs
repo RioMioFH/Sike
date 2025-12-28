@@ -8,8 +8,8 @@ public class KillZone : MonoBehaviour
         // Check if the object that entered is the player
         if (other.CompareTag("Player"))
         {
-            // Tell the GameManager to respawn the player
-            FindAnyObjectByType<GameOverUI>().Show();
+            // Tell the GameManager the player died
+            GameManager.Instance.PlayerDied(other.gameObject);
         }
     }
 }

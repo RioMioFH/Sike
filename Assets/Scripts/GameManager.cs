@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     // Position where the player respawns (in Inspector)
     [SerializeField] private Transform spawnPoint;
 
+    // Reference to game over UI shown when player dies
+    [SerializeField] private GameOverUI gameOverUI;
+
     // Counts how many times the player has died
     private int deathCount = 0;
 
@@ -24,6 +27,12 @@ public class GameManager : MonoBehaviour
 
         // Store this GameManager so other scripts can use it
         Instance = this;
+    }
+
+    public void PlayerDied(GameObject player)
+    {
+        // Show game over screen
+        gameOverUI.Show();
     }
 
     // Method that respawns the player after death
