@@ -10,11 +10,10 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("Level_01");
     }
 
-    // Loads the start screen from pause menu or end- winscreen e.g.
+    // Loads the start screen from pause menu or from endscreen e.g.
     public void LoadStartScreen()
     {
         SceneManager.LoadScene("StartScreen");
-    
     }
     
     // Loads next level or EndScreen if last level
@@ -33,7 +32,6 @@ public class SceneLoader : MonoBehaviour
             SceneManager.LoadScene("EndScreen");
         }
     }
-
 
     // Exits the game by quitting the application
     public void QuitGame()

@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             // Another GameManager was found, remove it
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
