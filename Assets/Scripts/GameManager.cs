@@ -20,11 +20,12 @@ public class GameManager : MonoBehaviour
 
     // Controls whether the game time is currently running
     private bool isTiming = false;
+    // Tracks whether the game is currently paused
+    public bool IsPaused { get; private set; } = false;
 
     // Unity method called once when the scene loads (before Start)
     private void Awake()
     {   
-
         // Make sure only one GameManager exists
         if (Instance != null && Instance != this)
         {
@@ -57,6 +58,9 @@ public class GameManager : MonoBehaviour
     {   
         // Do not count time outside of level scenes
         if (!isTiming) return;
+        
+        // Do not count time while game is paused
+        if (IsPaused) return;
 
         // Increase total play time independent of time scale
         TimePlayed += Time.unscaledDeltaTime;
@@ -109,5 +113,11 @@ public class GameManager : MonoBehaviour
     {
         DeathCount = 0;
         TimePlayed = 0f;
+    }
+
+    // Sets paused state for time tracking
+    public void SetPaused(bool paused)
+    {
+        IsPaused = paused;
     }
 }

@@ -51,8 +51,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Stop all player controls if the player is dead
-        if (isDead) return;
+        // Stop all player controls if player is dead or game is paused
+        if (isDead || (GameManager.Instance != null && GameManager.Instance.IsPaused))
+            return;
 
         // Check if the player provides any movement or jump input
         bool hasInput = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);

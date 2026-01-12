@@ -49,6 +49,12 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
+    // Placeholder button for future settings menu
+    public void OpenSettings()
+    {
+        Debug.Log("Settings menu not implemented yet.");
+    }
+
     // Exits the game by quitting the application
     public void QuitGame()
     {
