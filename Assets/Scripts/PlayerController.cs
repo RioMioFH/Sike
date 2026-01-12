@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Method that checks if the player is touching the ground
-        private bool IsGrounded()
+    private bool IsGrounded()
     {   
         // Overlap circles at both ground check positions to detect ground
         bool left = Physics2D.OverlapCircle(groundCheckLeft.position, groundCheckRadius, groundLayer);
@@ -173,6 +173,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DeathRoutine()
     {
         yield return new WaitForSecondsRealtime(deathDelay);
-        GameManager.Instance.PlayerDied(gameObject);
+        GameManager.Instance.ShowGameOver();
     }     
 }

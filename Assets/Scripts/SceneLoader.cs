@@ -4,9 +4,14 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     
-    // Loads the first level scene by name
+    // Loads the first level scene and starts a new run
     public void LoadLevel01()
-    {
+    {   
+        // Reset run values before starting the level  
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetRun();
+
+        // Load first level scene
         SceneManager.LoadScene("Level_01");
     }
 
@@ -16,9 +21,20 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("StartScreen");
     }
     
-    // Loads next level or EndScreen if last level
+    // Loads the next level or the end screen if no next level exists
     public void LoadNextScene()
-    {
+    {   
+        // Get name of the currently active scene
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Reset run when starting again from end screen
+        if (currentSceneName == "EndScreen")
+        {
+            if (GameManager.Instance != null)
+                GameManager.Instance.ResetRun();
+        }
+
+        // Get build index of the current scene
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextIndex = currentIndex + 1;
 
@@ -39,6 +55,7 @@ public class SceneLoader : MonoBehaviour
         Application.Quit();
 
         #if UNITY_EDITOR
+        // Stop play mode in the Unity Editor
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
     }

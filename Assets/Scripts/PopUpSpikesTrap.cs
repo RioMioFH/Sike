@@ -95,6 +95,4 @@ public class PopUpSpikesTrap : MonoBehaviour
             yield return null;
         }
     }
-
 }
-

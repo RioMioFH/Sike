@@ -40,7 +40,8 @@ public class GameOverUI : MonoBehaviour
 
     // Method to reload current scene
     private void RestartLevel()
-    {
+    {   
+         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
