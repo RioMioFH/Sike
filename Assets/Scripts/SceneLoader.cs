@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    
     // Loads the first level scene and starts a new run
     public void LoadLevel01()
     {   

@@ -224,6 +224,8 @@ MonoBehaviour:
   deathJumpForce: 15
   deathDelay: 0.8
   longIdleTime: 5
+  jumpSfx: {fileID: 8300000, guid: 06548331f2b85f541b1c088b4946c9e4, type: 3}
+  deathSfx: {fileID: 0}
 --- !u!95 &3547076129245856994
 Animator:
   serializedVersion: 7

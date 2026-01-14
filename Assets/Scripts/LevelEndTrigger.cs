@@ -5,6 +5,9 @@ public class LevelEndTrigger : MonoBehaviour
     // Reference to the trigger collider of this object
     private BoxCollider2D triggerCollider;
 
+    // Prevents triggering the level end multiple times
+    private bool triggered = false;
+
     // Called once when the object is created even before Start()
     private void Awake()
     {   
@@ -14,7 +17,10 @@ public class LevelEndTrigger : MonoBehaviour
 
     // Called every frame while another collider stays inside this trigger
     private void OnTriggerStay2D(Collider2D other)
-    {
+    {   
+        // Do nothing if already triggered
+        if (triggered) return;
+
         // Only trigger if object is player
         if (!other.CompareTag("Player"))
             return;
@@ -25,10 +31,15 @@ public class LevelEndTrigger : MonoBehaviour
 
         // Check if player is fully inside trigger
         if (triggerBounds.Contains(playerBounds.min) && triggerBounds.Contains(playerBounds.max))
-            
-        {
-            // Find SceneLoader in this scene and load next scene
-            FindAnyObjectByType<SceneLoader>().LoadNextScene();
+        {   
+            // Mark level end as triggered
+            triggered = true;
+
+            // Disable player movement immediately
+            other.GetComponent<PlayerController>()?.DisableMovement();
+
+            // Notify GameManager that the level was completed
+            GameManager.Instance.LevelCompleted();
         }
     }
 }

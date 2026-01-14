@@ -32,7 +32,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-     // Pauses gameplay and shows pause UI
+    // Pauses gameplay and shows pause UI
     public void Pause()
     {
         // Mark game as paused

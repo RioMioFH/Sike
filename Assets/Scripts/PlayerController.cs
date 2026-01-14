@@ -8,24 +8,28 @@ public class PlayerController : MonoBehaviour
     // SpriteRenderer used for flipping the player left/right
     private SpriteRenderer spriteRenderer;
 
+    [Header("Movement")]
     // Horizontal movement speed
     [SerializeField] private float moveSpeed = 6f;
     // Jump force applied to the player
     [SerializeField] private float jumpSpeed = 12f;
-    // Position used to check if the player is on the ground
+     // Prevents movement when the level is completed
+    private bool movementEnabled = true;
 
+    [Header("Animation")]
     // Animator that controls player animations (idle, run, jump, death)
     [SerializeField] private Animator animator;
 
+     [Header("Ground Check")]
     // Positions used to check if the player is on the ground
     [SerializeField] private Transform groundCheckLeft;
     [SerializeField] private Transform groundCheckRight;
-
     // Radius of the ground check circle
     [SerializeField] private float groundCheckRadius = 0.15f;
     // Layer that represents the ground
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Death")]
     // Upward impulse when the player dies (SuperMario-style)
     [SerializeField] private float deathJumpForce = 10f;
     // Delay before showing Game Over after death
@@ -33,11 +37,16 @@ public class PlayerController : MonoBehaviour
     // Prevents dying multiple times
     private bool isDead = false;
 
+    [Header("Idle")]
     // Time in seconds until the long idle animation triggers
     [SerializeField] private float longIdleTime = 3f;
     // Counts how long the player has been idle
     private float idleTimer = 0f;
 
+    // Cached input values
+    private float horizontalInput;
+    private bool jumpPressed;
+    private bool grounded;
 
     // Unity method called once at the start of the game
     void Start()
@@ -52,9 +61,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Stop all player controls if player is dead or game is paused
-        if (isDead || (GameManager.Instance != null && GameManager.Instance.IsPaused))
-            return;
+        if (isDead || !movementEnabled || (GameManager.Instance != null && GameManager.Instance.IsPaused)) return;
+        
+        ReadInput();
 
+        // Check if the player is on the ground
+        grounded = IsGrounded();
+
+        Idle();
+        Run();
+        Jump();
+    }   
+
+    // Reads movement and jump input once per frame
+    private void ReadInput()
+    {
+        // Read horizontal input (A/D or left/right arrows)
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        // Check if any jump key was pressed
+        jumpPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
+    }
+    
+    // Handles idle timer and long idle animation
+    private void Idle()
+    {
         // Check if the player provides any movement or jump input
         bool hasInput = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.01f || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 
@@ -63,65 +94,55 @@ public class PlayerController : MonoBehaviour
         {
             idleTimer = 0f;
             animator.SetBool("isIdleTooLong", false);
-        }
-        else
-        {   
-            // Increase idle timer while no input is given
-            idleTimer += Time.deltaTime;
-            // Activate long idle animation after defined idle time
-            if (idleTimer >= longIdleTime)
-            {
-                animator.SetBool("isIdleTooLong", true);
-            }
+            return;
         }
 
-        // Read horizontal input (A/D or left/right arrows)
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        // Increase idle timer while no input is given
+        idleTimer += Time.deltaTime;
+
+        // Activate long idle animation after defined idle time
+        if (idleTimer >= longIdleTime)
+            animator.SetBool("isIdleTooLong", true);
+    }
+        
+    // Handles horizontal movement, running animation and sprite flipping
+    private void Run()
+    {
         // Apply horizontal movement
         playerRigidbody.linearVelocityX = horizontalInput * moveSpeed;
 
         // Set running animation state based on movement input
-        if (horizontalInput != 0f)
-        {
-            animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
+        animator.SetBool("isRunning", Mathf.Abs(horizontalInput) > 0.01f);
 
         // Flip sprite depending on movement direction
-        if (horizontalInput < 0f)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if (horizontalInput > 0f)
-        {
-            spriteRenderer.flipX = false;
-        }
-
-        // Check if any jump key was pressed
-        bool jumpPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow);
-
-        bool grounded = IsGrounded();
-
+        if (horizontalInput != 0f)
+            spriteRenderer.flipX = horizontalInput < 0f;
+    }
+      
+    // Handles jumping logic and jump animation
+    private void Jump()
+    {
         // Jump only if jump key is pressed and player is on the ground
         if (jumpPressed && grounded)
-        {
+        {   
+            // Apply upward jump velocity
             playerRigidbody.linearVelocityY = jumpSpeed;
+
+            // Set jumping animation state
             animator.SetBool("isJumping", true);
 
+            // Play jump sound effect via PlayerAudio (if available)
+            GetComponent<PlayerAudio>()?.PlayJump();
         }
 
         // Reset jumping animation when player lands (or is falling down onto ground)
         if (grounded && playerRigidbody.linearVelocityY <= 0f)
-        {
             animator.SetBool("isJumping", false);
-        }
+        
     }
 
     // Method that checks if the player is touching the ground
-    private bool IsGrounded()
+    public bool IsGrounded()
     {   
         // Overlap circles at both ground check positions to detect ground
         bool left = Physics2D.OverlapCircle(groundCheckLeft.position, groundCheckRadius, groundLayer);
@@ -153,6 +174,9 @@ public class PlayerController : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
+        // Play death sound effect via PlayerAudio (if available)
+        GetComponent<PlayerAudio>()?.PlayDeath();
+
         // Set death animation state
         animator.SetBool("isDead", true);
 
@@ -175,5 +199,19 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(deathDelay);
         GameManager.Instance.ShowGameOver();
-    }     
+    }
+
+    // Disables player movement and input
+    public void DisableMovement()
+    {
+        // Disable movement input
+        movementEnabled = false;
+
+        // Stop any current movement immediately
+        playerRigidbody.linearVelocity = Vector2.zero;
+
+        // Stop running and jumping animations
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isJumping", false);
+    }
 }
