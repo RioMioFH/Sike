@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*public class EditorStartSceneLoader : MonoBehaviour
+public class EditorStartSceneLoader : MonoBehaviour
 {
 #if UNITY_EDITOR
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -11,4 +11,3 @@ using UnityEngine.SceneManagement;
     }
 #endif
 }
-*/

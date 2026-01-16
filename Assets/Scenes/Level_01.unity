@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7456b7f67b98dd84abcbc02534631a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartFloorTrap
-  trapStartFloorTilemap: {fileID: 0}
+  trapStartFloorTilemap: {fileID: 1987966371}
 --- !u!1 &211304086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1256,7 @@ MonoBehaviour:
   moveDistanceY: 1
   movingSpeed: 12
   returnSpeed: 3
-  platform: {fileID: 0}
+  platform: {fileID: 907509923}
 --- !u!61 &554170470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220022ad1b4240144a6853751ed3b7db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpSpikesTrap
-  popUpSpikes: {fileID: 0}
+  popUpSpikes: {fileID: 2041656574}
   visibleTime: 1
   moveDistance: 1
   moveSpeed: 10
