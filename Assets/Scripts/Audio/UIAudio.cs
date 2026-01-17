@@ -7,19 +7,19 @@ public class UIAudio : MonoBehaviour
     // Sound effect played when the level is completed
     [SerializeField] private AudioClip levelCompleteSfx;
 
+    // Plays button click sound effect
     public void PlayClick()
     {   
+        // If Audiomanager is not missing play sound
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayUISFX(clickSfx);
+            AudioManager.Instance.PlayUISFX(clickSfx, 0.5f);
     }
 
     // Plays level complete sound effect
     public void PlayLevelComplete()
     {
-        // Do nothing if AudioManager is missing
-        if (AudioManager.Instance == null) return;
-
-        // Play level complete UI sound effect
-        AudioManager.Instance.PlayUISFX(levelCompleteSfx);
+        // If Audiomanager is not missing play sound
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayUISFX(levelCompleteSfx, 4f);
     }
 }

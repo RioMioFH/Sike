@@ -110,7 +110,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply master volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetMasterVolume(value01);
+
+            // Apply mixer volumes immediately so the change is audible right away
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the Music slider value changes (0–100)
@@ -124,7 +130,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply music volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetMusicVolume(value01);
+
+            // Apply mixer volumes immediately so the change is audible right away
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the SFX slider value changes (0–100)
@@ -138,7 +150,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply SFX volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetSfxVolume(value01);
+
+            // Apply mixer volumes immediately (SFX slider also controls UI_SFX)
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the Show Time toggle value changes
@@ -166,13 +184,15 @@ public class SettingsMenuUI : MonoBehaviour
     // Called when the Reset button is clicked
     public void OnResetClicked()
     {
-        // Do nothing if SettingsManager is missing
-        if (SettingsManager.Instance == null) return;
-
         // Reset all settings to default values
-        SettingsManager.Instance.ResetToDefaults();
+        if (SettingsManager.Instance != null)
+            SettingsManager.Instance.ResetToDefaults();
 
         // Update UI to show the default values
         RefreshUIFromSettings();
+
+        // Apply mixer volumes after reset (RefreshUI blocks callbacks with isInitializing)
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ApplyVolumes();
     }
 }
