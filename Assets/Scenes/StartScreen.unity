@@ -2021,6 +2021,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1207752777}
     m_Modifications:
+    - target: {fileID: 346791149662437561, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 346791149662437561, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 803082828623226607, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
       propertyPath: m_Name
       value: SettingsPanel
@@ -2096,6 +2104,14 @@ PrefabInstance:
     - target: {fileID: 4386824823188699683, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440623276277524626, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440623276277524626, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4907222902635308463, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2260,6 +2276,14 @@ PrefabInstance:
     - target: {fileID: 7621402503841221145, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312448131667447331, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312448131667447331, guid: 297e6eefcd617824f9f7ce487ac443a2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
