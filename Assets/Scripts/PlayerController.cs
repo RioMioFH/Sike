@@ -37,6 +37,12 @@ public class PlayerController : MonoBehaviour
     // Prevents dying multiple times
     private bool isDead = false;
 
+    [Header("Fall Death")]
+    // Y-position below which the player is considered fallen out of the level
+    [SerializeField] private float deathThreshold = -5f;
+    // Prevents fall death from triggering multiple times
+    private bool fellOutOfMap = false;
+
     [Header("Idle")]
     // Time in seconds until the long idle animation triggers
     [SerializeField] private float longIdleTime = 3f;
@@ -67,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         // Check if the player is on the ground
         grounded = IsGrounded();
-
+        CheckFallDeath();
         Idle();
         Run();
         Jump();
@@ -192,6 +198,20 @@ public class PlayerController : MonoBehaviour
 
         // Start delay before showing Game Over UI
         StartCoroutine(DeathRoutine());
+    }
+
+    // Checks if the player has fallen below the level and triggers death
+    private void CheckFallDeath()
+    {
+        // Do nothing if already dead or fall death already triggered
+        if (isDead || fellOutOfMap) return;
+
+        // Trigger death if player falls below the defined threshold
+        if (transform.position.y < deathThreshold)
+        {
+            fellOutOfMap = true;
+            Die();
+        }
     }
 
     // Coroutine that waits before triggering the Game Over UI
