@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6541428160161919414}
   - component: {fileID: 8931808681608623041}
   - component: {fileID: 3547076129245856994}
+  - component: {fileID: 6345946137681880992}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -60,7 +61,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3723779112072895734}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.459, y: -4.6477, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -223,9 +224,9 @@ MonoBehaviour:
     m_Bits: 8
   deathJumpForce: 15
   deathDelay: 0.8
+  deathThreshold: -12.5
+  fallDeathJumpMultiplier: 1.5
   longIdleTime: 5
-  jumpSfx: {fileID: 8300000, guid: 06548331f2b85f541b1c088b4946c9e4, type: 3}
-  deathSfx: {fileID: 0}
 --- !u!95 &3547076129245856994
 Animator:
   serializedVersion: 7
@@ -248,6 +249,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6345946137681880992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723779112072895734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7b14354ebb6c4408b468f0b7415f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepsAudio
+  jumpSfx: {fileID: 8300000, guid: 06548331f2b85f541b1c088b4946c9e4, type: 3}
+  deathSfx: {fileID: 8300000, guid: b51fbd03a1613f047a2b1a1cd1e2c6bd, type: 3}
+  footstepSfx: {fileID: 8300000, guid: d2b86e8637b88434592e2f4c9287d255, type: 3}
+  playerController: {fileID: 8931808681608623041}
 --- !u!1 &8489112330929892475
 GameObject:
   m_ObjectHideFlags: 0
