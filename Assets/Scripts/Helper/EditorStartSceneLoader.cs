@@ -7,7 +7,7 @@ public class EditorStartSceneLoader : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void LoadStartScene()
     {
-        SceneManager.LoadScene("StartScreen");
+        SceneManager.LoadScene("Level_02");
     }
 #endif
 }

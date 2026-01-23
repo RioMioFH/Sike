@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     // SpriteRenderer used for flipping the player left/right
     private SpriteRenderer spriteRenderer;
 
+    // Collider used to determine the player's physical bottom
+    private Collider2D playerCollider;
+
     [Header("Movement")]
     // Horizontal movement speed
     [SerializeField] private float moveSpeed = 6f;
@@ -55,6 +58,9 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         // Get SpriteRenderer component for flipping the sprite
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        // Cache collider for fall-out-of-map detection
+        playerCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
