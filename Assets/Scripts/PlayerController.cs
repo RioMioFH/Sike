@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Method that handles player death (animation + physics + game over
+    // Method that handles player death (animation + physics + game over)
     public void Die()
     {   
         // Stop if the player already died

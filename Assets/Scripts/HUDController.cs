@@ -8,19 +8,6 @@ public class HUDController : MonoBehaviour
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text deathText;
 
-    // Stores last HUD visibility state to avoid calling SetActive every frame
-    private bool lastShowTime;
-    private bool lastShowDeaths;
-
-    // Unity method called once on scene start
-    private void Start()
-    {
-        // Set initial state so Update applies it once
-        lastShowTime = true;
-        lastShowDeaths = true;
-    }
-
-
     // Update is called once per frame
     private void Update()
     {   

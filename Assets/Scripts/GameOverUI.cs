@@ -14,9 +14,7 @@ public class GameOverUI : MonoBehaviour
     // Method to ensure panel is hidden at scene start
     private void Start()
     {    
-        isGameOverActive = false;
-        pendingShow = false;
-        gameOverPanel.SetActive(false);
+        Hide();
     }
 
     // Update is called once per frame

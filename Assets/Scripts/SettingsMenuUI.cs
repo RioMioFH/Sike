@@ -33,6 +33,10 @@ public class SettingsMenuUI : MonoBehaviour
     // Prevents UI callbacks while we are filling in values
     private bool isInitializing = false;
 
+    // Tracks whether the settings menu is currently open
+    private bool isOpen = false;
+
+
     // Called once on scene start
     private void Start()
     {
@@ -42,6 +46,17 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Hide settings menu at scene start
         settingsPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        // Close settings menu when Escape is pressed
+        if (!isOpen) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     // Opens the settings menu
@@ -56,6 +71,9 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Sync UI with current settings values
         RefreshUIFromSettings();
+
+        // Mark settings as open
+        isOpen = true;
     }   
 
     // Closes the settings menu
@@ -67,6 +85,9 @@ public class SettingsMenuUI : MonoBehaviour
         // Show the menu behind settings again (if assigned)
         if (menuToHide != null)
             menuToHide.SetActive(true);
+        
+        // Mark settings as closed
+        isOpen = false;
     }
 
         // Updates sliders/toggles to match the current values in SettingsManager

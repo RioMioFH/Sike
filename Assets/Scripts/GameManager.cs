@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private GameOverUI gameOverUI;
 
     // Delay before loading the next scene after level completion
-    [SerializeField] private float levelCompleteDelay = 0.6f;
+    [SerializeField] private float levelCompleteDelay = 1.5f;
 
     // Prevents triggering the level end multiple times
     private bool levelCompleted = false;
