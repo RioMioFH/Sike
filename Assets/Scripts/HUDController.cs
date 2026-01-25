@@ -8,19 +8,6 @@ public class HUDController : MonoBehaviour
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text deathText;
 
-    // Stores last HUD visibility state to avoid calling SetActive every frame
-    private bool lastShowTime;
-    private bool lastShowDeaths;
-
-    // Unity method called once on scene start
-    private void Start()
-    {
-        // Set initial state so Update applies it once
-        lastShowTime = true;
-        lastShowDeaths = true;
-    }
-
-
     // Update is called once per frame
     private void Update()
     {   
@@ -34,18 +21,18 @@ public class HUDController : MonoBehaviour
         bool showTime = SettingsManager.Instance.ShowTime;
         bool showDeaths = SettingsManager.Instance.ShowDeaths;
         
-        // Only update GameObject active state if it changed
-        if (showTime != lastShowTime && timeText != null)
-        {
-            timeText.gameObject.SetActive(showTime);
-            lastShowTime = showTime;
-        }
+        // Update HUD visibility based on the REAL active state (more robust than lastShow flags)
+if (timeText != null && timeText.gameObject.activeSelf != showTime)
+{
+    // Show/hide the time UI element based on the setting
+    timeText.gameObject.SetActive(showTime);
+}
 
-        if (showDeaths != lastShowDeaths && deathText != null)
-        {
-            deathText.gameObject.SetActive(showDeaths);
-            lastShowDeaths = showDeaths;
-        }
+if (deathText != null && deathText.gameObject.activeSelf != showDeaths)
+{
+    // Show/hide the death UI element based on the setting
+    deathText.gameObject.SetActive(showDeaths);
+}
         
         // Get total time played from GameManager
         float time = GameManager.Instance.TimePlayed;

@@ -33,6 +33,10 @@ public class SettingsMenuUI : MonoBehaviour
     // Prevents UI callbacks while we are filling in values
     private bool isInitializing = false;
 
+    // Tracks whether the settings menu is currently open
+    private bool isOpen = false;
+
+
     // Called once on scene start
     private void Start()
     {
@@ -42,6 +46,17 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Hide settings menu at scene start
         settingsPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        // Close settings menu when Escape is pressed
+        if (!isOpen) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     // Opens the settings menu
@@ -56,6 +71,9 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Sync UI with current settings values
         RefreshUIFromSettings();
+
+        // Mark settings as open
+        isOpen = true;
     }   
 
     // Closes the settings menu
@@ -67,6 +85,9 @@ public class SettingsMenuUI : MonoBehaviour
         // Show the menu behind settings again (if assigned)
         if (menuToHide != null)
             menuToHide.SetActive(true);
+        
+        // Mark settings as closed
+        isOpen = false;
     }
 
         // Updates sliders/toggles to match the current values in SettingsManager
@@ -110,7 +131,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply master volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetMasterVolume(value01);
+
+            // Apply mixer volumes immediately so the change is audible right away
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the Music slider value changes (0–100)
@@ -124,7 +151,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply music volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetMusicVolume(value01);
+
+            // Apply mixer volumes immediately so the change is audible right away
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the SFX slider value changes (0–100)
@@ -138,7 +171,13 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply SFX volume
         if (SettingsManager.Instance != null)
+        {
             SettingsManager.Instance.SetSfxVolume(value01);
+
+            // Apply mixer volumes immediately (SFX slider also controls UI_SFX)
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ApplyVolumes();
+        }
     }
 
     // Called when the Show Time toggle value changes
@@ -166,13 +205,15 @@ public class SettingsMenuUI : MonoBehaviour
     // Called when the Reset button is clicked
     public void OnResetClicked()
     {
-        // Do nothing if SettingsManager is missing
-        if (SettingsManager.Instance == null) return;
-
         // Reset all settings to default values
-        SettingsManager.Instance.ResetToDefaults();
+        if (SettingsManager.Instance != null)
+            SettingsManager.Instance.ResetToDefaults();
 
         // Update UI to show the default values
         RefreshUIFromSettings();
+
+        // Apply mixer volumes after reset (RefreshUI blocks callbacks with isInitializing)
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ApplyVolumes();
     }
 }

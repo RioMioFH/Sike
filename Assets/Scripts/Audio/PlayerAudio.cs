@@ -41,6 +41,6 @@ public class PlayerAudio : MonoBehaviour
 
         // Play footstep sound effect
         if (AudioManager.Instance != null)
-            AudioManager.Instance.PlaySFX(footstepSfx);
+            AudioManager.Instance.PlaySFXOneShot(footstepSfx, 0.8f);
     }
 }

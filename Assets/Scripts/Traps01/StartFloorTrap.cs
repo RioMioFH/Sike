@@ -23,7 +23,7 @@ public class StartFloorTrap : MonoBehaviour
 
     void Update()
     {   
-        // First right-movement input triggers the trap
+        // First jump input triggers the trap
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Activate();
