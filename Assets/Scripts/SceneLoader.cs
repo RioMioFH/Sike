@@ -3,6 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+// Static reference so other scripts can access the SceneLoader globally
+    public static SceneLoader Instance { get; private set; }
+
+    public void Awake()
+    {
+        // Make sure only one GameManager exists
+        if (Instance != null && Instance != this)
+        {
+            // Another GameManager was found, remove it
+            Destroy(gameObject);
+            return;
+        }
+
+        // Keep SceneLoader when scenes reload
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Loads the first level scene and starts a new run
     public void LoadLevel01()
     {   
