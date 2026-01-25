@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class StartFloorTrap2 : MonoBehaviour
+public class StartFloorTrap : MonoBehaviour
 {
     // Tilemap with the floor tiles that should disappear when the trap is triggered
     [SerializeField] private Tilemap trapStartFloorTilemap;
@@ -24,7 +24,7 @@ public class StartFloorTrap2 : MonoBehaviour
     void Update()
     {   
         // First jump input triggers the trap
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Activate();
         }
