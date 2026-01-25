@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     // SpriteRenderer used for flipping the player left/right
     private SpriteRenderer spriteRenderer;
-
     [Header("Movement")]
     // Horizontal movement speed
     [SerializeField] private float moveSpeed = 6f;
@@ -36,7 +35,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deathDelay = 1.2f;
     // Prevents dying multiple times
     private bool isDead = false;
-
     [Header("Idle")]
     // Time in seconds until the long idle animation triggers
     [SerializeField] private float longIdleTime = 3f;
@@ -67,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
         // Check if the player is on the ground
         grounded = IsGrounded();
-
         Idle();
         Run();
         Jump();

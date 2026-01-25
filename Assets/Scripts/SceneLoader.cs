@@ -28,7 +28,7 @@ public class SceneLoader : MonoBehaviour
             GameManager.Instance.ResetRun();
 
         // Load first level scene
-        SceneManager.LoadScene("Level_01");
+        SceneManager.LoadScene("Level_03");
     }
 
     // Loads the start screen from pause menu or from endscreen e.g.
