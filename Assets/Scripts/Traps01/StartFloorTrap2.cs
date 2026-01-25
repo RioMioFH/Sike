@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class StartFloorTrap : MonoBehaviour
+public class StartFloorTrap2 : MonoBehaviour
 {
     // Tilemap with the floor tiles that should disappear when the trap is triggered
     [SerializeField] private Tilemap trapStartFloorTilemap;
