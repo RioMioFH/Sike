@@ -112,9 +112,6 @@ public class GameManager : MonoBehaviour
         if (levelCompleted) return;
         levelCompleted = true;
 
-        // Trigger UI level complete sound (no clip stored here)
-        FindAnyObjectByType<UIAudio>()?.PlayLevelComplete();
-
         // Load next scene after a short delay
         StartCoroutine(LoadNextSceneAfterDelay());
     }
