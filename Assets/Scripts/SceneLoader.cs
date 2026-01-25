@@ -8,10 +8,10 @@ public class SceneLoader : MonoBehaviour
 
     public void Awake()
     {
-        // Make sure only one GameManager exists
+        // Make sure only one SceneLoader exists
         if (Instance != null && Instance != this)
         {
-            // Another GameManager was found, remove it
+            // Another ScenLoader was found, remove it
             Destroy(gameObject);
             return;
         }

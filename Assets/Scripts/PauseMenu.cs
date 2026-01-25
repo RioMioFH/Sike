@@ -68,12 +68,6 @@ public class PauseMenu : MonoBehaviour
             pausePanel.SetActive(false);
     }
 
-    // Placeholder for future settings menu
-    public void OpenSettings()
-    {
-        Debug.Log("Settings menu not implemented yet.");
-    }
-
     // Exits to start screen
     public void ExitToStartMenu()
     {
