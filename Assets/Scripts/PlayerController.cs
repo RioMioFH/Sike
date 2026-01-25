@@ -7,9 +7,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     // SpriteRenderer used for flipping the player left/right
     private SpriteRenderer spriteRenderer;
-    // Collider used to determine the player's physical bottom
-    private Collider2D playerCollider;
-
     [Header("Movement")]
     // Horizontal movement speed
     [SerializeField] private float moveSpeed = 6f;
@@ -38,15 +35,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float deathDelay = 1.2f;
     // Prevents dying multiple times
     private bool isDead = false;
-
-    [Header("Fall Death")]
-    // Y-position below which the player is considered fallen out of the level
-    [SerializeField] private float deathThreshold = -12.5f;
-    // Prevents fall death from triggering multiple times
-    private bool fellOutOfMap = false;
-    // Multiplier applied to death jump when falling out of the map
-    [SerializeField] private float fallDeathJumpMultiplier = 1.5f;
-
     [Header("Idle")]
     // Time in seconds until the long idle animation triggers
     [SerializeField] private float longIdleTime = 3f;
@@ -65,8 +53,6 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         // Get SpriteRenderer component for flipping the sprite
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        // Cache collider for fall-out-of-map detection
-        playerCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -79,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
         // Check if the player is on the ground
         grounded = IsGrounded();
-        CheckFallDeath();
         Idle();
         Run();
         Jump();
@@ -180,7 +165,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Method that handles player death (animation + physics + game over
-    public void Die(bool fellFromMap = false)
+    public void Die()
     {   
         // Stop if the player already died
         if (isDead) return;
@@ -195,11 +180,7 @@ public class PlayerController : MonoBehaviour
         // Reset movement and apply upward death impulse (SuperMario-style)
         playerRigidbody.linearVelocity = Vector2.zero;
         playerRigidbody.gravityScale = 5f;
-        // Reduce jump force if death was caused by falling out of the map
-        float appliedJumpForce = fellFromMap
-            ? deathJumpForce * fallDeathJumpMultiplier
-            : deathJumpForce;
-        playerRigidbody.AddForce(Vector2.up * appliedJumpForce, ForceMode2D.Impulse);
+        playerRigidbody.AddForce(Vector2.up * deathJumpForce, ForceMode2D.Impulse);
 
         // Disable player collider so death does not trigger multiple times
         Collider2D collider = GetComponent<Collider2D>();
@@ -208,28 +189,6 @@ public class PlayerController : MonoBehaviour
 
         // Start delay before showing Game Over UI
         StartCoroutine(DeathRoutine());
-    }
-
-    // Checks if the player has fallen below the level and triggers death
-    // Checks whether the player has fallen below the level and triggers fall death
-    private void CheckFallDeath()
-    {
-        // Do nothing if the player is already dead, fall death was already triggered,
-        // or the collider reference is missing
-        if (isDead || fellOutOfMap || playerCollider == null) return;
-
-        // Get the lowest point of the player's collider (feet position)
-        float lowestPoint = playerCollider.bounds.min.y;
-
-        // Trigger death if the player's body has fallen below the defined threshold
-        if (lowestPoint < deathThreshold)
-        {
-            // Mark fall death as handled to prevent multiple triggers
-            fellOutOfMap = true;
-
-            // Trigger death logic with reduced jump force for fall deaths
-            Die(true);
-        }
     }
 
     // Coroutine that waits before triggering the Game Over UI

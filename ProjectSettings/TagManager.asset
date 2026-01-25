@@ -45,5 +45,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Boulders
+    uniqueID: 2212345331
+    locked: 0
   m_RenderingLayers:
   - Default
