@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     // Tracks whether the game is currently paused
     public bool IsPaused { get; private set; } = false;
 
+    // Tracks whether the game over screen is currently active
+    public bool IsGameOver { get; private set; } = false;
+
     // Unity method called once when the scene loads (before Start)
     private void Awake()
     {
@@ -64,8 +67,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Do not count time outside of level scenes or while paused
-        if (!isTiming || IsPaused) return;
+        // Do not count time outside of level scenes, while paused, or during game over
+        if (!isTiming || IsPaused || IsGameOver) return;
 
         // Increase total play time independent of time scale
         TimePlayed += Time.unscaledDeltaTime;
@@ -77,6 +80,8 @@ public class GameManager : MonoBehaviour
         // Increase death counter
         DeathCount++;
         Debug.Log("Player died. DeathCount = " + DeathCount);
+
+        IsGameOver = true;
 
         // Show game over screen (if available)
         if (gameOverUI != null)
@@ -90,6 +95,8 @@ public class GameManager : MonoBehaviour
     {
         // Stop if no player was given
         if (player == null) return;
+
+        IsGameOver = false;
 
         // Get player physics component
         Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
@@ -121,6 +128,8 @@ public class GameManager : MonoBehaviour
     {
         DeathCount = 0;
         TimePlayed = 0f;
+        IsGameOver = false;
+        SetPaused(false);
     }
 
     // Sets paused state for time tracking
@@ -134,6 +143,7 @@ public class GameManager : MonoBehaviour
     {
         // Reset level completed flag for the new scene
         levelCompleted = false;
+        IsGameOver = false;
 
         // Enable time tracking only in level scenes
         isTiming = scene.name.StartsWith("Level");
