@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2274527375009908802}
   - component: {fileID: 9218388413022376016}
   - component: {fileID: 4411449894841064883}
-  - component: {fileID: 8923659490436345404}
   - component: {fileID: 6829196600738948829}
+  - component: {fileID: 7145089176943622453}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -166,18 +166,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &8923659490436345404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9076776773086557410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10132a4f66ccfd1478b2f5b278aaea81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinPickUp
 --- !u!61 &6829196600738948829
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -224,3 +212,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.6, y: 0.6}
   m_EdgeRadius: 0
+--- !u!114 &7145089176943622453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076776773086557410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10132a4f66ccfd1478b2f5b278aaea81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinPickUp

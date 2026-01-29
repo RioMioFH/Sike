@@ -20,6 +20,18 @@ public class GameOverUI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {   
+
+        // If Game Over is active and player opens pause menu, hide Game Over UI temporarily
+        if (isGameOverActive && Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Hide ONLY the visuals, keep isGameOverActive true
+            if (gameOverPanel != null)
+                gameOverPanel.SetActive(false);
+
+            // Re-show after pause is closed
+            pendingShow = true;
+            return;
+        }
         // Show game over after resume if it was delayed
         if (pendingShow && (GameManager.Instance == null || !GameManager.Instance.IsPaused))
         {

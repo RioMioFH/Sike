@@ -16,6 +16,7 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
+        Instance = this;
         // Keep SceneLoader when scenes reload
         DontDestroyOnLoad(gameObject);
     }

@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 77542756}
   - component: {fileID: 77542755}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: StartMenu_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,9 +350,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 55293443}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: QuitGame
+      - m_Target: {fileID: 1791031992}
+        m_TargetAssemblyTypeName: StartEndScreenUI, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1163,7 +1163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIAudio
   clickSfx: {fileID: 8300000, guid: 1123efb419d19834d81e6699bd325dfb, type: 3}
-  levelCompleteSfx: {fileID: 0}
 --- !u!1 &1375058431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,6 +1355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1791031991}
   - component: {fileID: 1791031990}
+  - component: {fileID: 1791031992}
   m_Layer: 0
   m_Name: StartMenu
   m_TagString: Untagged
@@ -1376,7 +1376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIAudio
   clickSfx: {fileID: 8300000, guid: 1123efb419d19834d81e6699bd325dfb, type: 3}
-  levelCompleteSfx: {fileID: 0}
 --- !u!4 &1791031991
 Transform:
   m_ObjectHideFlags: 0
@@ -1395,6 +1394,18 @@ Transform:
   - {fileID: 154854386}
   m_Father: {fileID: 77542758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1791031992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791031989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a67166574f60d14a85f4e97d3b764ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartEndScreenUI
 --- !u!1 &1806440997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,9 +1488,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 55293443}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadLevel01
+      - m_Target: {fileID: 1791031992}
+        m_TargetAssemblyTypeName: StartEndScreenUI, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

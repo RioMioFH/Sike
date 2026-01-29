@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class DropLanternTrigger : MonoBehaviour
 {
-    // Tag that identifies the player object
-    [SerializeField] private string playerTag = "Player";
-
     // Rigidbody2D of the lantern that should fall when the trap is triggered
     [SerializeField] private Rigidbody2D lanternRb;
 
@@ -18,7 +15,7 @@ public class DropLanternTrigger : MonoBehaviour
         if (triggered) return;
 
         // Only react when the player enters the trigger
-        if (!other.CompareTag(playerTag)) return;
+        if (!other.CompareTag("Player")) return;
 
         // Mark trap as triggered
         triggered = true;
