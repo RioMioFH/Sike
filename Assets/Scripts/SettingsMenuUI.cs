@@ -19,16 +19,12 @@ public class SettingsMenuUI : MonoBehaviour
     // Slider for sfx volume
     [SerializeField] private Slider sfxSlider;
 
-    [Header("UI Toggles")]
-    // Toggle for showing time in HUD
-    [SerializeField] private Toggle showTimeToggle;
+    [Header("HUD Switches")]
+    // Animated slider switch for showing time in HUD
+    [SerializeField] private AnimatedClickToggle showTimeSwitch;
 
-    // Toggle for showing deaths in HUD
-    [SerializeField] private Toggle showDeathsToggle;
-
-    [Header("Buttons")]
-    // Button to reset all settings
-    [SerializeField] private Button resetButton;
+    // Animated slider switch for showing deaths in HUD
+    [SerializeField] private AnimatedClickToggle showDeathsSwitch;
 
     // Prevents UI callbacks while we are filling in values
     private bool isInitializing = false;
@@ -43,6 +39,16 @@ public class SettingsMenuUI : MonoBehaviour
         // If no panel was assigned, use this GameObject
         if (settingsPanel == null)
             settingsPanel = gameObject;
+
+        // Bind switches to SettingsManager so UI can never desync
+        if (SettingsManager.Instance != null)
+        {
+            if (showTimeSwitch != null)
+                showTimeSwitch.Bind(() => SettingsManager.Instance.ShowTime);
+
+            if (showDeathsSwitch != null)
+                showDeathsSwitch.Bind(() => SettingsManager.Instance.ShowDeaths);
+        }
 
         // Hide settings menu at scene start
         settingsPanel.SetActive(false);
@@ -90,7 +96,7 @@ public class SettingsMenuUI : MonoBehaviour
         isOpen = false;
     }
 
-        // Updates sliders/toggles to match the current values in SettingsManager
+    // Updates sliders/toggles to match the current values in SettingsManager
     private void RefreshUIFromSettings()
     {
         // Do nothing if SettingsManager is missing
@@ -109,12 +115,12 @@ public class SettingsMenuUI : MonoBehaviour
         if (sfxSlider != null)
             sfxSlider.value = SettingsManager.Instance.SfxVolume * 100f;
 
-        // UI Toggles directly match bool values
-        if (showTimeToggle != null)
-            showTimeToggle.isOn = SettingsManager.Instance.ShowTime;
+        // HUD switches reflect stored bool values
+        if (showTimeSwitch != null)
+            showTimeSwitch.SyncFromExternal(animated: false);
 
-        if (showDeathsToggle != null)
-            showDeathsToggle.isOn = SettingsManager.Instance.ShowDeaths;
+        if (showDeathsSwitch != null)
+            showDeathsSwitch.SyncFromExternal(animated: false);
 
         // Allow callbacks again
         isInitializing = false;
@@ -131,13 +137,12 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply master volume
         if (SettingsManager.Instance != null)
-        {
             SettingsManager.Instance.SetMasterVolume(value01);
 
-            // Apply mixer volumes immediately so the change is audible right away
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.ApplyVolumes();
-        }
+        // Apply mixer volumes immediately so the change is audible right away
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ApplyVolumes();
+        
     }
 
     // Called when the Music slider value changes (0–100)
@@ -151,13 +156,12 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply music volume
         if (SettingsManager.Instance != null)
-        {
             SettingsManager.Instance.SetMusicVolume(value01);
 
-            // Apply mixer volumes immediately so the change is audible right away
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.ApplyVolumes();
-        }
+        // Apply mixer volumes immediately so the change is audible right away
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ApplyVolumes();
+        
     }
 
     // Called when the SFX slider value changes (0–100)
@@ -171,16 +175,15 @@ public class SettingsMenuUI : MonoBehaviour
 
         // Apply SFX volume
         if (SettingsManager.Instance != null)
-        {
             SettingsManager.Instance.SetSfxVolume(value01);
 
-            // Apply mixer volumes immediately (SFX slider also controls UI_SFX)
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.ApplyVolumes();
-        }
+        // Apply mixer volumes immediately (SFX slider also controls UI_SFX)
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ApplyVolumes();
+        
     }
 
-    // Called when the Show Time toggle value changes
+    // Called when the Show Time switch value changes
     public void OnShowTimeToggleChanged(bool value)
     {   
         // Ignore events while we are setting UI values
@@ -191,7 +194,7 @@ public class SettingsMenuUI : MonoBehaviour
             SettingsManager.Instance.SetShowTime(value);
     }
 
-    // Called when the Show Deaths toggle value changes
+    // Called when the Show Deaths switch value changes
     public void OnShowDeathsToggleChanged(bool value)
     {
         // Ignore events while we are setting UI values
@@ -212,7 +215,7 @@ public class SettingsMenuUI : MonoBehaviour
         // Update UI to show the default values
         RefreshUIFromSettings();
 
-        // Apply mixer volumes after reset (RefreshUI blocks callbacks with isInitializing)
+        // Apply mixer volumes after reset
         if (AudioManager.Instance != null)
             AudioManager.Instance.ApplyVolumes();
     }

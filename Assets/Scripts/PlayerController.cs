@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Method that handles player death (animation + physics + game over)
-    public void Die()
+    public void Die(bool launchUp = true)
     {   
         // Stop if the player already died
         if (isDead) return;
@@ -177,11 +177,17 @@ public class PlayerController : MonoBehaviour
         // Set death animation state
         animator.SetBool("isDead", true);
 
-        // Reset movement and apply upward death impulse (SuperMario-style)
+        // Stop player movement
         playerRigidbody.linearVelocity = Vector2.zero;
         playerRigidbody.gravityScale = 5f;
-        playerRigidbody.AddForce(Vector2.up * deathJumpForce, ForceMode2D.Impulse);
 
+        // Optional Mario-style launch upwards
+        // Used for spikes / pits, but disabled for crushed or ceiling deaths
+        if (launchUp)
+        {
+            playerRigidbody.AddForce(Vector2.up * deathJumpForce, ForceMode2D.Impulse);
+        }
+      
         // Disable player collider so death does not trigger multiple times
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null) 

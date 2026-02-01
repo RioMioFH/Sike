@@ -1,30 +1,37 @@
 using UnityEngine;
 
 public class DropLanternTrigger : MonoBehaviour
-{
-    // Rigidbody2D of the lantern that should fall when the trap is triggered
+{   
+    // Reference to the lantern Rigidbody
     [SerializeField] private Rigidbody2D lanternRb;
 
-    // Ensures the trap is triggered only once
+    // Initial downward speed when the lantern is released
+    [SerializeField] private float initialDownSpeed = 8f;
+
+    // Prevents the lantern from being triggered multiple times
     private bool triggered = false;
 
-    // Called automatically when another collider enters this trigger
+    // Called when the player enters the trigger
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Prevent multiple activations
+    {   
+        // Ensure the trigger is only activated once
         if (triggered) return;
 
-        // Only react when the player enters the trigger
+        // Only react to the player
         if (!other.CompareTag("Player")) return;
 
-        // Mark trap as triggered
         triggered = true;
 
-        // Switch lantern from kinematic to dynamic so it falls down
-        if (lanternRb != null)
-        {
-            lanternRb.bodyType = RigidbodyType2D.Dynamic;
-            lanternRb.WakeUp();
-        }
+        // Safety check in case the reference is missing
+        if (lanternRb == null) return;
+
+        // Switch the lantern to dynamic so gravity and collisions apply
+        lanternRb.bodyType = RigidbodyType2D.Dynamic;
+
+        // Make sure the rigidbody is active in the physics simulation
+        lanternRb.WakeUp();
+
+        // Apply an initial downward velocity to make the fall feel heavier
+        lanternRb.linearVelocity = new Vector2(0f, -initialDownSpeed);
     }
 }

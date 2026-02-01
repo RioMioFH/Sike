@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {   
+    // If true: Mario-style death launch (pop up)
+    // If false: no launch (better for crushed / ceiling / lantern deaths)
+    [SerializeField] private bool launchUpOnDeath = true;
+
     // Unity method called when another object enters the trigger collider
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -14,6 +18,6 @@ public class KillZone : MonoBehaviour
         
         // Trigger player death if a PlayerController was found
         if (playerController != null)
-            playerController.Die();
+            playerController.Die(launchUpOnDeath);
     }
 }

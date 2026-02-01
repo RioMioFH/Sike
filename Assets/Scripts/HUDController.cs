@@ -21,18 +21,18 @@ public class HUDController : MonoBehaviour
         bool showTime = SettingsManager.Instance.ShowTime;
         bool showDeaths = SettingsManager.Instance.ShowDeaths;
         
-        // Update HUD visibility based on the REAL active state (more robust than lastShow flags)
-if (timeText != null && timeText.gameObject.activeSelf != showTime)
-{
-    // Show/hide the time UI element based on the setting
-    timeText.gameObject.SetActive(showTime);
-}
+        // Update HUD visibility based on the REAL active state
+        if (timeText != null && timeText.gameObject.activeSelf != showTime)
+        {
+            // Show/hide the time UI element based on the setting
+            timeText.gameObject.SetActive(showTime);
+        }
 
-if (deathText != null && deathText.gameObject.activeSelf != showDeaths)
-{
-    // Show/hide the death UI element based on the setting
-    deathText.gameObject.SetActive(showDeaths);
-}
+        if (deathText != null && deathText.gameObject.activeSelf != showDeaths)
+        {
+            // Show/hide the death UI element based on the setting
+            deathText.gameObject.SetActive(showDeaths);
+        }
         
         // Get total time played from GameManager
         float time = GameManager.Instance.TimePlayed;

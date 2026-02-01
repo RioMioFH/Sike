@@ -59,6 +59,7 @@ public class AudioManager : MonoBehaviour
 
         // Assign clip and play it as looping music
         musicSource.clip = clip;
+        musicSource.loop = true;
         musicSource.Play();
     }
 
@@ -95,7 +96,7 @@ public class AudioManager : MonoBehaviour
         if (clip == null) return;
 
         // Clamp volumeScale to keep values reasonable
-        volumeScale = Mathf.Clamp(volumeScale, 0f, 2f);
+        volumeScale = Mathf.Clamp(volumeScale, 0f, 4f);
 
         // Play sound effect without stopping other SFX
         sfxSource.PlayOneShot(clip, volumeScale);

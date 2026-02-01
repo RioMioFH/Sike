@@ -17,6 +17,7 @@ public class HorizontalSpikesTrap : MonoBehaviour
 
     // Ensures the movement loop is started only once
     private bool activated = false;
+    
     // Movement direction (1 = right, -1 = left)
     [SerializeField] private int direction = -1;
 

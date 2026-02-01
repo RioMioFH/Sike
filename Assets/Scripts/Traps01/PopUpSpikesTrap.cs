@@ -6,9 +6,6 @@ public class PopUpSpikesTrap : MonoBehaviour
     // Reference to the spike object that appears temporarily
     [SerializeField] private GameObject popUpSpikes;
 
-    // Reference to the SIKE trigger zone (SikeSoundTrigger GameObject)
-    [SerializeField] private GameObject sikeTrigger;
-
     // Duration in seconds the spikes stay visible
     [SerializeField] private float visibleTime = 1.0f;
 
@@ -35,10 +32,6 @@ public class PopUpSpikesTrap : MonoBehaviour
 
         // Move spikes to hidden position at scene start
         popUpSpikes.transform.position = hiddenPosition;
-
-        // Make sure SIKE trigger is disabled at start
-        if (sikeTrigger != null)
-            sikeTrigger.SetActive(false);
     }
 
     // Method to activate the pop-up spike trap
@@ -50,11 +43,7 @@ public class PopUpSpikesTrap : MonoBehaviour
 
         // Enable spike object
         popUpSpikes.SetActive(true);
-        
-        // Enable SIKE trigger while spikes are dangerous
-        if (sikeTrigger != null)
-            sikeTrigger.SetActive(true);
-
+   
         // Animate spikes moving upwards into view
         StartCoroutine(MoveSpikes(hiddenPosition, shownPosition));
 
@@ -86,10 +75,6 @@ public class PopUpSpikesTrap : MonoBehaviour
 
         // Disable spike object after hiding
         popUpSpikes.SetActive(false);
-
-        // Disable SIKE trigger once the trap is no longer dangerous
-        if (sikeTrigger != null)
-            sikeTrigger.SetActive(false);
     }  
 
     // Smoothly moves the spikes between two positions

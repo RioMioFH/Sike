@@ -306,7 +306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6239475893915114173, guid: 9ff7b1fd4554e734c87d689b27d5bc54, type: 3}
+  m_Sprite: {fileID: 144587728, guid: 58177114b40537343b0792879fdc1137, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -482,8 +482,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 957458594}
-        m_TargetAssemblyTypeName: EndScreenUI, Assembly-CSharp
-        m_MethodName: PlayAgain
+        m_TargetAssemblyTypeName: StartEndScreenUI, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4095493939691982076, guid: 9ff7b1fd4554e734c87d689b27d5bc54, type: 3}
+  m_Sprite: {fileID: 1440595985, guid: 58177114b40537343b0792879fdc1137, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

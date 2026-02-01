@@ -39,8 +39,10 @@ public class PlayerAudio : MonoBehaviour
         // Do nothing if player is not on the ground
         if (!playerController.IsGrounded()) return;
 
+        // Do nothing if AudioManager is missing
+        if (AudioManager.Instance == null) return;
+
         // Play footstep sound effect
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlaySFXOneShot(footstepSfx, 0.8f);
+        AudioManager.Instance.PlaySFXOneShot(footstepSfx, 0.8f);
     }
 }

@@ -79,15 +79,13 @@ public class GameManager : MonoBehaviour
     {
         // Increase death counter
         DeathCount++;
-        Debug.Log("Player died. DeathCount = " + DeathCount);
 
         IsGameOver = true;
 
         // Show game over screen (if available)
         if (gameOverUI != null)
             gameOverUI.Show();
-        else
-            Debug.LogWarning("GameOverUI not found in this scene.");
+  
     }
 
     // Method that respawns the player after death
@@ -108,8 +106,6 @@ public class GameManager : MonoBehaviour
         // Move player back to spawn position (if available)
         if (spawnPoint != null)
             player.transform.position = spawnPoint.position;
-        else
-            Debug.LogWarning("SpawnPoint not found in this scene.");
     }
 
     // Called when the player completes the level
@@ -169,11 +165,7 @@ public class GameManager : MonoBehaviour
         // Wait briefly before loading the next scene
         yield return new WaitForSeconds(levelCompleteDelay);
 
-        // Find SceneLoader in this scene and load next scene
-        SceneLoader loader = FindAnyObjectByType<SceneLoader>();
-        if (loader != null)
-            loader.LoadNextScene();
-        else
-            Debug.LogWarning("SceneLoader not found in this scene.");
+        // Load next scene
+        SceneLoader.Instance.LoadNextScene();
     }
 }
